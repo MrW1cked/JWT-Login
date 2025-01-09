@@ -12,6 +12,6 @@ public class I18NKeys {
     public static final String INVALID_CREDENTIALS = "account.invalid_credentials";
     public static final String USER_BLOCKED = "account.user_blocked";
     public static final String EMAIL_NOT_VALIDATED = "account.email_not_validated";
-    
+    public static final String EMAIL_NOT_VALIDATED_NEW_TOKEN = "account.email_not_validated_new_token";
   }
 }

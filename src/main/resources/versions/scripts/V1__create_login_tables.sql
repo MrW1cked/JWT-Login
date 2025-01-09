@@ -63,3 +63,39 @@ ALTER TABLE USER_LOGIN
     ADD COLUMN VERIFICATION_TOKEN_EXPIRATION TIMESTAMP,
     ADD COLUMN RESET_TOKEN VARCHAR(255),
     ADD COLUMN RESET_TOKEN_EXPIRATION TIMESTAMP;
+
+-- Sequência para gerar IDs
+CREATE SEQUENCE IF NOT EXISTS exceptions_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+-- Tabela EXCEPTIONS
+CREATE TABLE EXCEPTIONS (
+                            id BIGINT PRIMARY KEY,
+                            REQUEST_IP VARCHAR(255),
+                            EXCEPTION_NAME VARCHAR(255),
+                            EXCEPTION_MESSAGE VARCHAR(4000),
+                            USER_CC_NUMBER INT,
+                            REQUEST_DATE_TIME TIMESTAMP WITH TIME ZONE,
+                            READED BOOLEAN
+);
+
+-- Sequência para gerar IDs
+CREATE SEQUENCE IF NOT EXISTS logs_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+-- Tabela LOGS
+CREATE TABLE LOGS (
+                      id BIGINT PRIMARY KEY,
+                      REQUEST_IP VARCHAR(255),
+                      METHOD_NAME VARCHAR(255),
+                      USER_CC_NUMBER INT,
+                      REQUEST_DATE_TIME TIMESTAMP WITH TIME ZONE
+);

@@ -1,5 +1,6 @@
 package com.back.sousa.controllers;
 
+import com.back.sousa.helpers.custom_interfaces.LogIpIntoTable;
 import com.back.sousa.models.auth.AuthenticationRequest;
 import com.back.sousa.models.auth.AuthenticationResponse;
 import com.back.sousa.models.auth.RegisterRequest;
@@ -26,15 +27,15 @@ public class AuthenticationController {
   private final PasswordService passwordService;
   private final EmailService emailService;
 
-
+  @LogIpIntoTable
   @PostMapping("/register")
-
   public ResponseEntity<AuthenticationResponse> register(
           @Valid  @RequestBody RegisterRequest request
   ) throws IOException {
     return ResponseEntity.ok(authenticationService.register(request));
   }
- 
+
+  @LogIpIntoTable
   @PostMapping("/authenticate")
   public ResponseEntity<AuthenticationResponse> authenticate(
           @Valid @RequestBody AuthenticationRequest request
@@ -42,7 +43,7 @@ public class AuthenticationController {
     return ResponseEntity.ok(authenticationService.authenticate(request));
   }
 
- 
+  @LogIpIntoTable
   @PostMapping("/refresh-token")
   public void refreshToken(
       HttpServletRequest request,
@@ -51,6 +52,7 @@ public class AuthenticationController {
     authenticationService.refreshToken(request, response);
   }
 
+  @LogIpIntoTable
   @PatchMapping("/users/change-password")
   public ResponseEntity<?> changePassword(
           @Valid @RequestBody ChangePasswordRequestDTO request,
@@ -60,6 +62,7 @@ public class AuthenticationController {
     return ResponseEntity.ok().build();
   }
 
+  @LogIpIntoTable
   @PostMapping("/verify-email")
   public ResponseEntity<String> verifyEmail(@RequestParam("token") String token) {
     emailService.verifyEmail(token);

@@ -117,6 +117,9 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 
 
 You must add some part that talks about the V2 that we add:
-Email verification and functionalities
-Check if an email is already in used upon registration
-Login without email verified check
+- Email verification functionalities when creating new accounts 
+- Implementing a Check if an email is already in used upon registration
+- Prevent Login without email verified check
+- Messages translations for exceptions (more types of exceptions)
+- Logs table to track every action in the system into a table in the database (which user did what and when) with exceptions beeing recorded to.
+- Ip address tracking for every request (in the logs table) CAREFULL WITH GDPR

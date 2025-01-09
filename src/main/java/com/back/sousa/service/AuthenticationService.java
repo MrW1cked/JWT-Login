@@ -84,7 +84,7 @@ public class AuthenticationService {
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         try {
-            loginAttemptService.checkAccoutStatus(request.getCcNumber());
+            loginAttemptService.checkAccountStatus(request.getCcNumber());
 
             authenticationManager.authenticate(
                     buildAuthentication(request)

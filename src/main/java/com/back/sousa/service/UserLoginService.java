@@ -8,7 +8,10 @@ import com.back.sousa.models.database.login.UserLoginMO;
 import com.back.sousa.models.dto.UserLogin;
 import com.back.sousa.models.enums.Role;
 import com.back.sousa.repositories.UserLoginRepository;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -56,5 +59,18 @@ public class UserLoginService {
                 .memberStartingDate(LocalDate.now())
                 .memberEndingDate(null)
                 .build();
+    }
+
+    public void generateNewToken(@NonNull UserLoginMO user) {
+        user.setVerificationToken(java.util.UUID.randomUUID().toString());
+        user.setVerificationTokenExpiration(java.time.LocalDateTime.now().plusHours(24));
+        userRepository.save(user);
+    }
+
+    public Integer getLoggedOnUserCCNumber() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+
+        return Integer.valueOf(userDetails.getUsername());
     }
 }

@@ -4,6 +4,7 @@ import com.back.sousa.exceptions.UserBlockedException;
 import com.back.sousa.helpers.messages.I18NKeys;
 import com.back.sousa.helpers.messages.MessagesService;
 import com.back.sousa.models.database.login.LoginAttemptsMO;
+import com.back.sousa.models.database.login.UserLoginMO;
 import com.back.sousa.repositories.LoginAttemptsRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -115,13 +116,20 @@ public class LoginAttemptService {
         });
     }
 
-    public void checkAccoutStatus(@NonNull Integer ccNumber) {
+    public void checkAccountStatus(@NonNull Integer ccNumber) {
         checkIfsBlocked(ccNumber);
         checkIfAsValidatedEmailToken(ccNumber);
     }
 
     private void checkIfAsValidatedEmailToken(@NonNull Integer ccNumber) {
-        if (!userLoginService.checkIfUserExists(ccNumber).getEmailVerified()) {
+        UserLoginMO user = userLoginService.checkIfUserExists(ccNumber);
+        if (!user.getEmailVerified()) {
+
+            //check if the token time is still valid and if not generate a new token
+            if(user.getVerificationTokenExpiration().isBefore(LocalDateTime.now())){
+                userLoginService.generateNewToken(user);
+                throw new UserBlockedException(messagesService.getMessage(I18NKeys.UserMessage.EMAIL_NOT_VALIDATED_NEW_TOKEN));
+            }
             throw new UserBlockedException(messagesService.getMessage(I18NKeys.UserMessage.EMAIL_NOT_VALIDATED));
         }
     }

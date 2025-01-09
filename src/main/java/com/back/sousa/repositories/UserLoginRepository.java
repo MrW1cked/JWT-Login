@@ -10,9 +10,6 @@ import java.util.Optional;
 
 public interface UserLoginRepository extends JpaRepository<UserLoginMO, Integer> {
 
-    @Query("SELECT user.ccNumber FROM UserLoginMO user WHERE user.role = :role")
-    List<Integer> findAllCCNumbersByRole(Role role);
-
     Optional<UserLoginMO> findByVerificationToken(String token);
 
     List<UserLoginMO> findByEmail(String email);
