@@ -17,6 +17,10 @@ spring:
   application:
     name: sousa-back-login
 
+login:
+  max-attempts: 5
+  block-duration-hours: 1
+
 server:
   port: 9998
 

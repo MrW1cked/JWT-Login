@@ -5,7 +5,8 @@ import com.back.sousa.models.auth.AuthenticationResponse;
 import com.back.sousa.models.auth.RegisterRequest;
 import com.back.sousa.models.dto.ChangePasswordRequestDTO;
 import com.back.sousa.service.AuthenticationService;
-import com.back.sousa.service.UserService;
+import com.back.sousa.service.EmailService;
+import com.back.sousa.service.PasswordService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -21,23 +22,24 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-  private final AuthenticationService service;
-  private final UserService userService;
+  private final AuthenticationService authenticationService;
+  private final PasswordService passwordService;
+  private final EmailService emailService;
 
- 
+
   @PostMapping("/register")
 
   public ResponseEntity<AuthenticationResponse> register(
           @Valid  @RequestBody RegisterRequest request
-  ) {
-    return ResponseEntity.ok(service.register(request));
+  ) throws IOException {
+    return ResponseEntity.ok(authenticationService.register(request));
   }
  
   @PostMapping("/authenticate")
   public ResponseEntity<AuthenticationResponse> authenticate(
           @Valid @RequestBody AuthenticationRequest request
   ) {
-    return ResponseEntity.ok(service.authenticate(request));
+    return ResponseEntity.ok(authenticationService.authenticate(request));
   }
 
  
@@ -46,7 +48,7 @@ public class AuthenticationController {
       HttpServletRequest request,
       HttpServletResponse response
   ) throws IOException {
-    service.refreshToken(request, response);
+    authenticationService.refreshToken(request, response);
   }
 
   @PatchMapping("/users/change-password")
@@ -54,8 +56,13 @@ public class AuthenticationController {
           @Valid @RequestBody ChangePasswordRequestDTO request,
           Principal connectedUser
   ) {
-    userService.changePassword(request, connectedUser);
+    passwordService.changePassword(request, connectedUser);
     return ResponseEntity.ok().build();
   }
 
+  @GetMapping("/verify-email")
+  public ResponseEntity<String> verifyEmail(@RequestParam("token") String token) {
+    emailService.verifyEmail(token);
+    return ResponseEntity.ok("Email verificado com sucesso!");
+  }
 }

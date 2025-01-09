@@ -1,13 +1,14 @@
 package com.back.sousa.models.database.login;
 
-import com.back.sousa.models.enums.Role;
 import com.back.sousa.models.database.auditable.Auditable;
+import com.back.sousa.models.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -40,8 +41,27 @@ public class UserLoginMO extends Auditable implements UserDetails {
   @Enumerated(EnumType.STRING)
   private Role role;
 
+  //For email verification
+  @Column(name="EMAIL_VERIFIED")
+  private Boolean emailVerified;
+  //For email verification
+  @Column(name="VERIFICATION_TOKEN")
+  private String verificationToken;
+  //For email verification
+  @Column(name="VERIFICATION_TOKEN_EXPIRATION")
+  private LocalDateTime verificationTokenExpiration;
+  //For email verification
+  @Column(name="RESET_TOKEN")
+  private String resetToken;
+  //For email verification
+  @Column(name="RESET_TOKEN_EXPIRATION")
+  private LocalDateTime resetTokenExpiration;
+
   @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
   private List<TokenMO> tokens;
+
+  @Column(name="TERMS_READED")
+  private Boolean termsReaded;
 
   @Column(name="MEMBER_STARTING_DATE")
   private LocalDate memberStartingDate;
@@ -54,7 +74,9 @@ public class UserLoginMO extends Auditable implements UserDetails {
 
   @Column(name="WAS_DISPATCHED")
   private Boolean wasDispatched;
-  
+
+
+
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return role.getAuthorities();

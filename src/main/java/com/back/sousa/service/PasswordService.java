@@ -1,8 +1,8 @@
 package com.back.sousa.service;
 
 import com.back.sousa.helpers.custom_interfaces.TransactionalService;
-import com.back.sousa.models.dto.ChangePasswordRequestDTO;
 import com.back.sousa.models.database.login.UserLoginMO;
+import com.back.sousa.models.dto.ChangePasswordRequestDTO;
 import com.back.sousa.repositories.UserLoginRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,7 +12,7 @@ import java.security.Principal;
 
 @TransactionalService
 @RequiredArgsConstructor
-public class UserService {
+public class PasswordService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserLoginRepository repository;
