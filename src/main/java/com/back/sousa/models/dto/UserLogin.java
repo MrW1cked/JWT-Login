@@ -32,13 +32,4 @@ public class UserLogin {
     @Builder.Default
     private Boolean wasDispatched = false;
 
-
-    public static UserLogin createNewUserByRequest(RegisterRequest registerRequest){
-        return UserLogin.builder()
-                .ccNumber(registerRequest.getCcNumber())
-                .firstName(registerRequest.getFirstName())
-                .lastName(registerRequest.getLastName())
-                .email(registerRequest.getEmail())
-                .build();
-    }
 }

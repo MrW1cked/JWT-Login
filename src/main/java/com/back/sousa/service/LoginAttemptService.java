@@ -5,6 +5,7 @@ import com.back.sousa.helpers.messages.I18NKeys;
 import com.back.sousa.helpers.messages.MessagesService;
 import com.back.sousa.models.database.login.LoginAttemptsMO;
 import com.back.sousa.repositories.LoginAttemptsRepository;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -112,5 +113,16 @@ public class LoginAttemptService {
             }
             loginAttemptsRepository.save(loginAttempts);
         });
+    }
+
+    public void checkAccoutStatus(@NonNull Integer ccNumber) {
+        checkIfsBlocked(ccNumber);
+        checkIfAsValidatedEmailToken(ccNumber);
+    }
+
+    private void checkIfAsValidatedEmailToken(@NonNull Integer ccNumber) {
+        if (!userLoginService.checkIfUserExists(ccNumber).getEmailVerified()) {
+            throw new UserBlockedException(messagesService.getMessage(I18NKeys.UserMessage.EMAIL_NOT_VALIDATED));
+        }
     }
 }

@@ -25,6 +25,10 @@ public class ValidationService {
             errorMessage += "Numero de Cartão de Cidadão inválido. " + System.lineSeparator();
         }
 
+        if (!userRepository.findByEmail(request.getEmail()).isEmpty()) {
+            errorMessage += "Email já existe. " + System.lineSeparator();
+        }
+
         return AuthenticationResponse.builder()
                 .errorMessage(errorMessage.isEmpty() ? "" : "Erro nos seguintes campos: " + System.lineSeparator()
                         + errorMessage)

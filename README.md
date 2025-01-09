@@ -113,3 +113,10 @@ Each secured endpoint requires an `Authorization` header with a valid JWT.
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+
+
+You must add some part that talks about the V2 that we add:
+Email verification and functionalities
+Check if an email is already in used upon registration
+Login without email verified check

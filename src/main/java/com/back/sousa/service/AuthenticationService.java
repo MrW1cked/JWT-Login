@@ -84,7 +84,7 @@ public class AuthenticationService {
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         try {
-            loginAttemptService.checkIfsBlocked(request.getCcNumber());
+            loginAttemptService.checkAccoutStatus(request.getCcNumber());
 
             authenticationManager.authenticate(
                     buildAuthentication(request)
@@ -112,7 +112,6 @@ public class AuthenticationService {
                 request.getPassword()
         );
     }
-
 
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);

@@ -14,4 +14,6 @@ public interface UserLoginRepository extends JpaRepository<UserLoginMO, Integer>
     List<Integer> findAllCCNumbersByRole(Role role);
 
     Optional<UserLoginMO> findByVerificationToken(String token);
+
+    List<UserLoginMO> findByEmail(String email);
 }

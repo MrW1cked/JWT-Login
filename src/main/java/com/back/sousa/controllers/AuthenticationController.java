@@ -60,7 +60,7 @@ public class AuthenticationController {
     return ResponseEntity.ok().build();
   }
 
-  @GetMapping("/verify-email")
+  @PostMapping("/verify-email")
   public ResponseEntity<String> verifyEmail(@RequestParam("token") String token) {
     emailService.verifyEmail(token);
     return ResponseEntity.ok("Email verificado com sucesso!");
