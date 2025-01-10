@@ -120,7 +120,7 @@ public class AuthenticationService {
         }
 
         String refreshToken = authHeader.substring(7);
-        Integer ccNumber = Integer.valueOf(jwtService.extractUsername(refreshToken));
+        String ccNumber = jwtService.extractUsername(refreshToken);
         if (ccNumber != null) {
             var user = userLoginService.checkIfUserExists(ccNumber);
             if (jwtService.isTokenValid(refreshToken, user)) {

@@ -15,7 +15,7 @@ public interface TokenRepository extends JpaRepository<TokenMO, BigInteger> {
       on t.user.ccNumber = u.ccNumber\s
       where u.ccNumber = :id and (t.expired = false or t.revoked = false)\s
       """)
-  List<TokenMO> findAllValidTokenByUser(Integer id);
+  List<TokenMO> findAllValidTokenByUser(String id);
 
   Optional<TokenMO> findByToken(String token);
 }

@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserLoginRepository extends JpaRepository<UserLoginMO, Integer> {
+public interface UserLoginRepository extends JpaRepository<UserLoginMO, String> {
 
     Optional<UserLoginMO> findByVerificationToken(String token);
 

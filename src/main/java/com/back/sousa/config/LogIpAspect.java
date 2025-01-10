@@ -34,26 +34,17 @@ public class LogIpAspect {
     public void logIpAfterMethod(JoinPoint joinPoint) {
         String ipAddress = requestService.getClientIp(requestIp);
         String methodName = joinPoint.getSignature().getName();
-        Integer patientCCNumber;
-
-        if (methodName.equals("register")) {
-            patientCCNumber = 0;
-        } else if (methodName.equals("authenticate")) {
-            patientCCNumber = 0;
-        } else if (methodName.equals("verifyEmail")) {
-            patientCCNumber = 0;
-        } else if (methodName.equals("buildLogMessage")) {
-            patientCCNumber = 0;
-        } else {
-            patientCCNumber = userLoginService.getLoggedOnUserCCNumber();
-        }
+        String patientCCNumber = switch (methodName) {
+            case "register", "verifyEmail", "authenticate", "buildLogMessage" -> "";
+            default -> userLoginService.getLoggedOnUserCCNumber();
+        };
 
         log.info("IP Address: {}, Method: {}, Logged On Patient CC Number: {}", ipAddress, methodName, patientCCNumber);
 
         saveLogIntoTable(ipAddress, methodName, patientCCNumber);
     }
 
-    private void saveLogIntoTable(String ipAddress, String methodName, Integer patientCCNumber) {
+    private void saveLogIntoTable(String ipAddress, String methodName, String patientCCNumber) {
         LogsMO log = LogsMO.builder()
                 .requestIp(ipAddress)
                 .methodName(methodName)

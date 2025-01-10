@@ -1,5 +1,6 @@
 package com.back.sousa.models.database.login;
 
+import com.back.sousa.models.database.EncryptionConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,16 +24,20 @@ public class ExceptionMO {
     private BigInteger id;
 
     @Column(name = "REQUEST_IP")
+    @Convert(converter = EncryptionConverter.class)
     private String requestIp;
 
     @Column(name = "EXCEPTION_NAME")
+    @Convert(converter = EncryptionConverter.class)
     private String methodName;
 
     @Column(name = "EXCEPTION_MESSAGE")
+    @Convert(converter = EncryptionConverter.class)
     private String exceptionMessage;
 
     @Column(name = "USER_CC_NUMBER")
-    private Integer userCCNumber;
+    @Convert(converter = EncryptionConverter.class)
+    private String userCCNumber;
 
     @Column(name = "REQUEST_DATE_TIME")
     private OffsetDateTime requestDateTime;

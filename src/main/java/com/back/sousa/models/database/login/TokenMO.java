@@ -1,5 +1,7 @@
 package com.back.sousa.models.database.login;
 
+import com.back.sousa.models.database.EncryptionConverter;
+
 import com.back.sousa.models.database.auditable.Auditable;
 import com.back.sousa.models.enums.TokenType;
 import jakarta.persistence.*;
@@ -22,6 +24,7 @@ public class TokenMO extends Auditable {
   private BigInteger id;
 
   @Column(unique = true)
+  @Convert(converter = EncryptionConverter.class)
   private String token;
 
   @Enumerated(EnumType.STRING)
@@ -34,5 +37,6 @@ public class TokenMO extends Auditable {
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "CC_NUMBER")
+  @Convert(converter = EncryptionConverter.class)
   private UserLoginMO user;
 }

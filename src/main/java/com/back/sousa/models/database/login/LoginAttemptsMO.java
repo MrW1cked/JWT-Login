@@ -1,6 +1,8 @@
 package com.back.sousa.models.database.login;
 
+import com.back.sousa.models.database.EncryptionConverter;
 import com.back.sousa.models.database.auditable.Auditable;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -18,7 +20,8 @@ import java.sql.Timestamp;
 public class LoginAttemptsMO extends Auditable {
 
     @Id
-    private Integer ccNumber;
+    @Convert(converter = EncryptionConverter.class)
+    private String ccNumber;
 
     private Integer attempts;
     private Timestamp lastAttempt;

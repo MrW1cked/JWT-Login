@@ -1,5 +1,6 @@
 package com.back.sousa.models.database.login;
 
+import com.back.sousa.models.database.EncryptionConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,13 +24,16 @@ public class LogsMO{
     private BigInteger id;
 
     @Column(name = "REQUEST_IP")
+    @Convert(converter = EncryptionConverter.class)
     private String requestIp;
 
     @Column(name = "METHOD_NAME")
+    @Convert(converter = EncryptionConverter.class)
     private String methodName;
 
     @Column(name = "USER_CC_NUMBER")
-    private Integer userCCNumber;
+    @Convert(converter = EncryptionConverter.class)
+    private String userCCNumber;
 
     @Column(name = "REQUEST_DATE_TIME")
     private OffsetDateTime requestDateTime;

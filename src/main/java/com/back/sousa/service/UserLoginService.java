@@ -5,7 +5,6 @@ import com.back.sousa.helpers.messages.I18NKeys;
 import com.back.sousa.helpers.messages.MessagesService;
 import com.back.sousa.models.auth.RegisterRequest;
 import com.back.sousa.models.database.login.UserLoginMO;
-import com.back.sousa.models.dto.UserLogin;
 import com.back.sousa.models.enums.Role;
 import com.back.sousa.repositories.UserLoginRepository;
 import lombok.NonNull;
@@ -26,7 +25,7 @@ public class UserLoginService {
     private final MessagesService messagesService;
     private final PasswordEncoder passwordEncoder;
 
-    public UserLoginMO checkIfUserExists(Integer ccNumber) {
+    public UserLoginMO checkIfUserExists(String ccNumber) {
         Optional<UserLoginMO> user = userRepository.findById(ccNumber);
 
         if (user.isEmpty()) {
@@ -67,10 +66,10 @@ public class UserLoginService {
         userRepository.save(user);
     }
 
-    public Integer getLoggedOnUserCCNumber() {
+    public String getLoggedOnUserCCNumber() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
-        return Integer.valueOf(userDetails.getUsername());
+        return userDetails.getUsername();
     }
 }

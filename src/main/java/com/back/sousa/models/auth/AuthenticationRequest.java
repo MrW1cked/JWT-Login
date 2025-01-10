@@ -12,7 +12,7 @@ public class AuthenticationRequest {
 
   @NonNull
   @ValidCCNumber
-  private Integer ccNumber;
+  private String ccNumber;
 
   @NonNull
   @Size(min = 6, max = 50)

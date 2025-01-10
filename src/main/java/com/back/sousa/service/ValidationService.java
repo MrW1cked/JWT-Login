@@ -25,7 +25,7 @@ public class ValidationService {
             sb.append("\n- A password deve ter no mínimo 6 caracteres.");
         }
 
-        if ((request.getCcNumber().compareTo(99999999)) == 1) {
+        if ((request.getCcNumber().length()) > 9) {
             sb.append("\n- Numero de Cartão de Cidadão inválido.");
         }
 

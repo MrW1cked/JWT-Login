@@ -67,14 +67,15 @@ public class GlobalExceptionHandler {
     public void buildExceptionLog(Exception e) {
         String ipAddress = requestService.getClientIp(requestIp);
         String methodName = e.getStackTrace()[0].getMethodName();
-        Integer patientCCNumber;
+        String patientCCNumber;
         if (methodName.equals("register")
                 || methodName.equals("authenticate")
                 || methodName.equals("resolveArgument")
                 || methodName.equals("verifyEmail")
-                || methodName.equals("buildLogMessage"))
+                || methodName.equals("buildLogMessage")
+                || methodName.equals("checkIfAsValidatedEmailToken"))
         {
-            patientCCNumber = 0;
+            patientCCNumber = "";
         } else patientCCNumber = userLoginService.getLoggedOnUserCCNumber();
 
         ExceptionMO exception = ExceptionMO.builder()

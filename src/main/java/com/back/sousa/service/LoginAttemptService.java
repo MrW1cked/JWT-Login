@@ -28,7 +28,7 @@ public class LoginAttemptService {
     private final LoginAttemptsRepository loginAttemptsRepository;
     private final MessagesService messagesService;
 
-    public void incrementLoginAttempts(Integer ccNumber) {
+    public void incrementLoginAttempts(String ccNumber) {
         userLoginService.checkIfUserExists(ccNumber);
 
         LoginAttemptsMO loginAttempts = getLoginAttempts(ccNumber);
@@ -41,7 +41,7 @@ public class LoginAttemptService {
         loginAttemptsRepository.save(loginAttempts);
     }
 
-    private LoginAttemptsMO createLoginAttemptForUser(Integer ccNumber) {
+    private LoginAttemptsMO createLoginAttemptForUser(String ccNumber) {
         return LoginAttemptsMO.builder()
                 .ccNumber(ccNumber)
                 .attempts(1)
@@ -50,11 +50,11 @@ public class LoginAttemptService {
                 .build();
     }
 
-    public LoginAttemptsMO getLoginAttempts(Integer ccNumber) {
+    public LoginAttemptsMO getLoginAttempts(String ccNumber) {
         return loginAttemptsRepository.findById(ccNumber).orElse(null);
     }
 
-    public void resetLoginAttemptsIfNecessary(Integer ccNumber) {
+    public void resetLoginAttemptsIfNecessary(String ccNumber) {
         LoginAttemptsMO loginAttempts = getLoginAttempts(ccNumber);
         if (loginAttempts != null && loginAttempts.getAttempts() > 0) {
             resetLoginAttempts(loginAttempts);
@@ -66,7 +66,7 @@ public class LoginAttemptService {
         loginAttemptsRepository.save(loginAttempts);
     }
 
-    public void checkIfsBlocked(Integer ccNumber) {
+    public void checkIfsBlocked(String ccNumber) {
         LoginAttemptsMO loginAttempts = getLoginAttempts(ccNumber);
 
         if (loginAttempts != null) {
@@ -99,7 +99,7 @@ public class LoginAttemptService {
         return loginAttempts.getAttempts() >= MAX_ATTEMPTS;
     }
 
-    public void banUsers(List<Integer> patientsCCNumber) {
+    public void banUsers(List<String> patientsCCNumber) {
         patientsCCNumber.forEach(ccNumber -> {
             LoginAttemptsMO loginAttempts = getLoginAttempts(ccNumber);
             if (loginAttempts == null) {
@@ -116,12 +116,12 @@ public class LoginAttemptService {
         });
     }
 
-    public void checkAccountStatus(@NonNull Integer ccNumber) {
+    public void checkAccountStatus(@NonNull String ccNumber) {
         checkIfsBlocked(ccNumber);
         checkIfAsValidatedEmailToken(ccNumber);
     }
 
-    private void checkIfAsValidatedEmailToken(@NonNull Integer ccNumber) {
+    private void checkIfAsValidatedEmailToken(@NonNull String ccNumber) {
         UserLoginMO user = userLoginService.checkIfUserExists(ccNumber);
         if (!user.getEmailVerified()) {
 

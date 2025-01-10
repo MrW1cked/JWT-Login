@@ -23,7 +23,7 @@ public class ApplicationConfig {
 
   @Bean
   public UserDetailsService userDetailsService() {
-    return ccNumber -> repository.findById(Integer.valueOf(ccNumber))
+    return ccNumber -> repository.findById((ccNumber))
         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
   }
 
@@ -36,7 +36,7 @@ public class ApplicationConfig {
   }
 
   @Bean
-  public AuditorAware<Integer> auditorAware() {
+  public AuditorAware<String> auditorAware() {
     return new ApplicationAuditAware();
   }
 

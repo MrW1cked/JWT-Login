@@ -1,5 +1,6 @@
 package com.back.sousa.models.database.login;
 
+import com.back.sousa.models.database.EncryptionConverter;
 import com.back.sousa.models.database.auditable.Auditable;
 import com.back.sousa.models.enums.Role;
 import jakarta.persistence.*;
@@ -23,11 +24,14 @@ public class UserLoginMO extends Auditable implements UserDetails {
 
   @Id
   @Column(name="CC_NUMBER")
-  private Integer ccNumber;
+  @Convert(converter = EncryptionConverter.class)
+  private String ccNumber;
 
+  @Convert(converter = EncryptionConverter.class)
   @Column(name="FIRST_NAME")
   private String firstName;
 
+  @Convert(converter = EncryptionConverter.class)
   @Column(name="LAST_NAME")
   private String lastName;
 
@@ -74,8 +78,6 @@ public class UserLoginMO extends Auditable implements UserDetails {
 
   @Column(name="WAS_DISPATCHED")
   private Boolean wasDispatched;
-
-
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -15,7 +15,7 @@ public class RegisterRequest {
 
   @NonNull
   @ValidCCNumber
-  private Integer ccNumber;
+  private String ccNumber;
 
   @NonNull
   @Size(min = 2, max = 50)

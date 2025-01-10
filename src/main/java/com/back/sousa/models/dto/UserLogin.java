@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class UserLogin {
 
-    private Integer ccNumber;
+    private String ccNumber;
     private String firstName;
     private String lastName;
     private String email;
