@@ -34,7 +34,7 @@ public class ValidationService {
         }
 
         // Constrói a mensagem final
-        String errorMessage = sb.length() == 0
+        String errorMessage = sb.isEmpty()
                 ? ""
                 : "Erro nos seguintes campos:" + sb;
 
