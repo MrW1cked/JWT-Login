@@ -1,4 +1,4 @@
-# Sousa Back Login V2
+# SpringBoot Backend Login V2
 
 This is the authentication backend for the Sousa project, built using Java and Spring Boot.  
 The project implements token-based authentication for securing API endpoints.
