@@ -21,8 +21,8 @@ public class ValidationService {
             sb.append("\n- Numero de Cartão de Cidadão já existe.");
         }
 
-        if (request.getPassword().length() < 6) {
-            sb.append("\n- A password deve ter no mínimo 6 caracteres.");
+        if (request.getPassword().length() < 10) {
+            sb.append("\n- A password deve ter no mínimo 10 caracteres.");
         }
 
         if ((request.getCcNumber().length()) > 9) {

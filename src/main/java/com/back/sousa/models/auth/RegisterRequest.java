@@ -30,6 +30,6 @@ public class RegisterRequest {
   private String email;
 
   @NonNull
-  @Size(min = 6, max = 50)
+  @Size(min = 10, max = 50)
   private String password;
 }
