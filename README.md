@@ -102,7 +102,7 @@ Each secured endpoint requires an `Authorization` header with a valid JWT.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repository.git
+   git clone [https://github.com/your-repository.git](https://github.com/MrW1cked/JWT-Login)
    cd sousa-back-login
    ```
 
